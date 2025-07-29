@@ -1,0 +1,88 @@
+{
+  "PackageName": "WindowsTerminalSetup_Production",
+  "Version": "1.0.0",
+  "CreatedDate": "2025-07-30T00:30:00Z",
+  "CreatedBy": "Augment Agent",
+  "Description": "Complete Windows Terminal & PowerShell development environment setup",
+  "Requirements": {
+    "MinimumPowerShellVersion": "5.1",
+    "MinimumWindowsVersion": "10.0.18362",
+    "RecommendedPowerShellVersion": "7.0",
+    "RequiredModules": [
+      "Pester"
+    ],
+    "OptionalModules": [
+      "PSScriptAnalyzer",
+      "platyPS"
+    ]
+  },
+  "Installation": {
+    "MainScript": "Install-WindowsTerminalSetup-Simple.ps1",
+    "AlternativeScript": "Install-WindowsTerminalSetup-Enhanced.ps1",
+    "Documentation": "docs/INSTALLATION_GUIDE.md",
+    "Instructions": "INSTALL.md"
+  },
+  "Components": {
+    "CoreTools": [
+      "Windows Terminal",
+      "Git",
+      "curl"
+    ],
+    "DevelopmentTools": [
+      "lazygit",
+      "LazyVim",
+      "fnm",
+      "pyenv"
+    ],
+    "TerminalEnhancements": [
+      "Oh My Posh",
+      "Nerd Fonts",
+      "fzf",
+      "eza",
+      "bat",
+      "lsd",
+      "zoxide"
+    ]
+  },
+  "PackageManagers": [
+    "winget",
+    "chocolatey",
+    "scoop"
+  ],
+  "Features": [
+    "Automatic system detection",
+    "Backup and restore functionality",
+    "Comprehensive error handling",
+    "Progress tracking",
+    "Rollback capabilities",
+    "Cross-PowerShell version compatibility",
+    "Extensive logging",
+    "User-friendly interface"
+  ],
+  "Testing": {
+    "UnitTests": "tests/Unit/",
+    "IntegrationTests": "tests/Integration/",
+    "QualityAssurance": "tests/Quality-Assurance.ps1",
+    "TestRunner": "tests/Run-Tests.ps1",
+    "TestConfiguration": "tests/Test-Configuration.ps1"
+  },
+  "Documentation": {
+    "InstallationGuide": "docs/INSTALLATION_GUIDE.md",
+    "TroubleshootingGuide": "docs/TROUBLESHOOTING.md",
+    "APIDocumentation": "docs/API_DOCUMENTATION.md",
+    "Architecture": "docs/ARCHITECTURE.md",
+    "FAQ": "docs/FAQ.md",
+    "UsageExamples": "docs/USAGE_EXAMPLES.md",
+    "Contributing": "docs/CONTRIBUTING.md"
+  },
+  "Support": {
+    "Issues": "Check troubleshooting guide and FAQ",
+    "Updates": "Check project repository",
+    "Community": "Project repository discussions"
+  },
+  "License": "MIT",
+  "Checksum": {
+    "Algorithm": "SHA256",
+    "Note": "Verify package integrity before installation"
+  }
+}

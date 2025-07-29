@@ -1,0 +1,320 @@
+"Line","Column","Message","Extent","RuleName","Severity","ScriptName","ScriptPath","RuleSuppressionID","SuggestedCorrections","IsSuppressed"
+"137","9","Cmdlet 'Write-Host' has positional parameter. Please use named parameters instead of positional parameters when calling a command.","Write-Host ""  ??? Professional welcome banner with ASCII art"" -ForegroundColor Green
+        Write-Host ""  ??? Visual progress bars with time estimates"" -ForegroundColor Green","PSAvoidUsingPositionalParameters","Information","Demo-EnhancedUI.ps1","C:\Users\bangvu\Desktop\Projects\window-terminal\Demo-EnhancedUI.ps1","Write-Host",,"False"
+"139","9","Cmdlet 'Write-Host' has positional parameter. Please use named parameters instead of positional parameters when calling a command.","Write-Host ""  ??? Step-by-step wizard flow with clear headers"" -ForegroundColor Green
+        Write-Host ""  ??? Interactive user input with validation"" -ForegroundColor Green","PSAvoidUsingPositionalParameters","Information","Demo-EnhancedUI.ps1","C:\Users\bangvu\Desktop\Projects\window-terminal\Demo-EnhancedUI.ps1","Write-Host",,"False"
+"141","9","Cmdlet 'Write-Host' has positional parameter. Please use named parameters instead of positional parameters when calling a command.","Write-Host ""  ??? Tool selection menu with toggle functionality"" -ForegroundColor Green
+        Write-Host ""  ??? Configuration customization options"" -ForegroundColor Green","PSAvoidUsingPositionalParameters","Information","Demo-EnhancedUI.ps1","C:\Users\bangvu\Desktop\Projects\window-terminal\Demo-EnhancedUI.ps1","Write-Host",,"False"
+"143","9","Cmdlet 'Write-Host' has positional parameter. Please use named parameters instead of positional parameters when calling a command.","Write-Host ""  ??? Comprehensive installation summary reporting"" -ForegroundColor Green
+        Write-Host ""  ??? Color-coded output for better readability"" -ForegroundColor Green","PSAvoidUsingPositionalParameters","Information","Demo-EnhancedUI.ps1","C:\Users\bangvu\Desktop\Projects\window-terminal\Demo-EnhancedUI.ps1","Write-Host",,"False"
+"194","5","Cmdlet 'Write-Host' has positional parameter. Please use named parameters instead of positional parameters when calling a command.","Write-Host ""  ??? 300% improvement in user experience"" -ForegroundColor Green
+    Write-Host ""  ??? 500% better error handling and recovery"" -ForegroundColor Green","PSAvoidUsingPositionalParameters","Information","Demo-EnhancedUI.ps1","C:\Users\bangvu\Desktop\Projects\window-terminal\Demo-EnhancedUI.ps1","Write-Host",,"False"
+"196","5","Cmdlet 'Write-Host' has positional parameter. Please use named parameters instead of positional parameters when calling a command.","Write-Host ""  ??? 100% more reliable installations"" -ForegroundColor Green
+    Write-Host ""  ??? Professional-grade installation wizard"" -ForegroundColor Green","PSAvoidUsingPositionalParameters","Information","Demo-EnhancedUI.ps1","C:\Users\bangvu\Desktop\Projects\window-terminal\Demo-EnhancedUI.ps1","Write-Host",,"False"
+"11","52","Invoke-Expression is used. Please remove Invoke-Expression from script and find other options instead.","Invoke-Expression","PSAvoidUsingInvokeExpression","Warning","powershell-profile.ps1","C:\Users\bangvu\Desktop\Projects\window-terminal\configs\powershell-profile.ps1",,,"False"
+"14","81","Invoke-Expression is used. Please remove Invoke-Expression from script and find other options instead.","Invoke-Expression","PSAvoidUsingInvokeExpression","Warning","powershell-profile.ps1","C:\Users\bangvu\Desktop\Projects\window-terminal\configs\powershell-profile.ps1",,,"False"
+"22","5","Invoke-Expression is used. Please remove Invoke-Expression from script and find other options instead.","Invoke-Expression (& { (zoxide init powershell | Out-String) })","PSAvoidUsingInvokeExpression","Warning","powershell-profile.ps1","C:\Users\bangvu\Desktop\Projects\window-terminal\configs\powershell-profile.ps1",,,"False"
+"29","40","Invoke-Expression is used. Please remove Invoke-Expression from script and find other options instead.","Invoke-Expression","PSAvoidUsingInvokeExpression","Warning","powershell-profile.ps1","C:\Users\bangvu\Desktop\Projects\window-terminal\configs\powershell-profile.ps1",,,"False"
+"687","42","'curl' is an alias of 'Invoke-WebRequest'. Alias can introduce possible problems and make scripts hard to maintain. Please consider changing alias to its full content.","curl","PSAvoidUsingCmdletAliases","Warning","PackageManager.psm1","C:\Users\bangvu\Desktop\Projects\window-terminal\modules\Core\PackageManager.psm1","curl","System.Collections.Generic.List`1[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.CorrectionExtent]","False"
+"192","17","Invoke-Expression is used. Please remove Invoke-Expression from script and find other options instead.","Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))","PSAvoidUsingInvokeExpression","Warning","PackageManager.psm1","C:\Users\bangvu\Desktop\Projects\window-terminal\modules\Core\PackageManager.psm1",,,"False"
+"214","50","Invoke-Expression is used. Please remove Invoke-Expression from script and find other options instead.","Invoke-Expression","PSAvoidUsingInvokeExpression","Warning","PackageManager.psm1","C:\Users\bangvu\Desktop\Projects\window-terminal\modules\Core\PackageManager.psm1",,,"False"
+"615","27","'curl' is an alias of 'Invoke-WebRequest'. Alias can introduce possible problems and make scripts hard to maintain. Please consider changing alias to its full content.","curl","PSAvoidUsingCmdletAliases","Warning","SystemCheck.psm1","C:\Users\bangvu\Desktop\Projects\window-terminal\modules\Core\SystemCheck.psm1","curl","System.Collections.Generic.List`1[Microsoft.Windows.PowerShell.ScriptAnalyzer.Generic.CorrectionExtent]","False"
+"390","19","Invoke-Expression is used. Please remove Invoke-Expression from script and find other options instead.","Invoke-Expression $command 2>&1","PSAvoidUsingInvokeExpression","Warning","SystemCheck.psm1","C:\Users\bangvu\Desktop\Projects\window-terminal\modules\Core\SystemCheck.psm1",,,"False"
+"581","19","Invoke-Expression is used. Please remove Invoke-Expression from script and find other options instead.","Invoke-Expression $command 2>&1","PSAvoidUsingInvokeExpression","Warning","SystemCheck.psm1","C:\Users\bangvu\Desktop\Projects\window-terminal\modules\Core\SystemCheck.psm1",,,"False"
+"229","9","Unexpected token '}' in expression or statement.","}","UnexpectedToken","ParseError","UserInterface.psm1","C:\Users\bangvu\Desktop\Projects\window-terminal\modules\Core\UserInterface.psm1",,,"False"
+"410","20","Missing statement body in while loop.","","MissingLoopStatement","ParseError","UserInterface.psm1","C:\Users\bangvu\Desktop\Projects\window-terminal\modules\Core\UserInterface.psm1",,,"False"
+"413","1","Unexpected token '}' in expression or statement.","}","UnexpectedToken","ParseError","UserInterface.psm1","C:\Users\bangvu\Desktop\Projects\window-terminal\modules\Core\UserInterface.psm1",,,"False"
+"490","36","Unexpected token '{' in expression or statement.","{","UnexpectedToken","ParseError","UserInterface.psm1","C:\Users\bangvu\Desktop\Projects\window-terminal\modules\Core\UserInterface.psm1",,,"False"
+"494","7","Unexpected token 'else' in expression or statement.","else","UnexpectedToken","ParseError","UserInterface.psm1","C:\Users\bangvu\Desktop\Projects\window-terminal\modules\Core\UserInterface.psm1",,,"False"
+"527","75","The string is missing the terminator: "".",""" -ForegroundColor Red
+            }
+        }
+        Write-Host """"
+    }
+}
+
+# Export module functions
+Export-ModuleMember -Function @(
+    'Initialize-UserInterface',
+    'Show-WelcomeBanner',
+    'Show-ProgressBar',
+    'Show-StepHeader',
+    'Get-UserChoice',
+    'Get-YesNoChoice',
+    'Show-ToolSelectionMenu',
+    'Show-ConfigurationMenu',
+    'Show-InstallationSummary'
+)
+","TerminatorExpectedAtEndOfString","ParseError","UserInterface.psm1","C:\Users\bangvu\Desktop\Projects\window-terminal\modules\Core\UserInterface.psm1",,,"False"
+"140","5","Cmdlet 'Write-Host' has positional parameter. Please use named parameters instead of positional parameters when calling a command.","Write-Host ""???""
+    Write-Host ""???  [$progressBar] $percentage%"" -ForegroundColor Green
+    Write-Host ""???""","PSAvoidUsingPositionalParameters","Information","UserInterface.psm1","C:\Users\bangvu\Desktop\Projects\window-terminal\modules\Core\UserInterface.psm1","Write-Host",,"False"
+"143","5","Cmdlet 'Write-Host' has positional parameter. Please use named parameters instead of positional parameters when calling a command.","Write-Host ""???  Current Task: $CurrentTask"" -ForegroundColor White
+    Write-Host ""???  Elapsed: $elapsedStr","PSAvoidUsingPositionalParameters","Information","UserInterface.psm1","C:\Users\bangvu\Desktop\Projects\window-terminal\modules\Core\UserInterface.psm1","Write-Host",,"False"
+"178","5","Cmdlet 'Write-Host' has positional parameter. Please use named parameters instead of positional parameters when calling a command.","Write-Host ""???????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????"" -ForegroundColor Cyan
+    Write-Host ""??? STEP $StepNumber: $($StepTitle.ToUpper().PadRight(69)) ???"" -ForegroundColor Cyan
+    if ($StepDescription) {
+        Write-Host ""??? $($StepDescription.PadRight(77)) ???"" -ForegroundColor White
+    }
+    Write-Host ""???????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????"" -ForegroundColor Cyan
+    Write-Host """"
+}
+
+function Get-UserChoice {
+    <#
+    .SYNOPSIS
+        Prompts user for a choice with validation
+    
+    .PARAMETER Prompt
+        The prompt message
+    
+    .PARAMETER Choices
+        Array of valid choices
+    
+    .PARAMETER Default
+        Default choice if user presses Enter
+    
+    .PARAMETER AllowEmpty
+        Allow empty input
+    #>
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Prompt,
+        
+        [string[]]$Choices = @(),
+        
+        [string]$Default = """",
+        
+        [switch]$AllowEmpty
+    )
+    
+    do {
+        Write-Host """"
+        Write-Host ""?????? User Input Required"" -ForegroundColor Yellow
+        Write-Host ""???""","PSAvoidUsingPositionalParameters","Information","UserInterface.psm1","C:\Users\bangvu\Desktop\Projects\window-terminal\modules\Core\UserInterface.psm1","Write-Host",,"False"
+"220","9","Cmdlet 'Write-Host' has positional parameter. Please use named parameters instead of positional parameters when calling a command.","Write-Host ""???  $Prompt"" -ForegroundColor White
+        
+        if ($Choices.Count -gt 0) {
+            Write-Host ""???""
+            for ($i = 0; $i -lt $Choices.Count; $i++) {
+                $choice = $Choices[$i]
+                $indicator = if ($choice -eq $Default) { "" (default)"" } else { """" }
+                Write-Host ""???    [$($i + 1)] $choice$indicator"" -ForegroundColor Cyan","PSAvoidUsingPositionalParameters","Information","UserInterface.psm1","C:\Users\bangvu\Desktop\Projects\window-terminal\modules\Core\UserInterface.psm1","Write-Host",,"False"
+"232","13","Cmdlet 'Write-Host' has positional parameter. Please use named parameters instead of positional parameters when calling a command.","Write-Host ""???""
+            Write-Host ""???  Press Enter for default: $Default"" -ForegroundColor Gray
+        }
+        
+        Write-Host ""???""","PSAvoidUsingPositionalParameters","Information","UserInterface.psm1","C:\Users\bangvu\Desktop\Projects\window-terminal\modules\Core\UserInterface.psm1","Write-Host",,"False"
+"237","9","Cmdlet 'Write-Host' has positional parameter. Please use named parameters instead of positional parameters when calling a command.","Write-Host -NoNewline ""?????? Your choice: "" -ForegroundColor Yellow
+        
+        $input = Read-Host
+        
+        # Handle empty input
+        if ([string]::IsNullOrWhiteSpace($input)) {
+            if ($Default) {
+                return $Default
+            }
+            elseif ($AllowEmpty) {
+                return """"
+            }
+            else {
+                Write-Host ""   Please provide a valid input."" -ForegroundColor Red
+                continue
+            }
+        }
+        
+        # Handle numeric choices
+        if ($Choices.Count -gt 0) {
+            $numericChoice = $null
+            if ([int]::TryParse($input, [ref]$numericChoice)) {
+                if ($numericChoice -ge 1 -and $numericChoice -le $Choices.Count) {
+                    return $Choices[$numericChoice - 1]
+                }
+            }
+            
+            # Handle text choices (case-insensitive)
+            $matchingChoice = $Choices | Where-Object { $_ -like ""$input*"" }
+            if ($matchingChoice) {
+                return $matchingChoice[0]
+            }
+            
+            Write-Host ""   Invalid choice. Please select from the available options."" -ForegroundColor Red
+        }
+        else {
+            return $input
+        }
+    } while ($true)
+}
+
+function Get-YesNoChoice {
+    <#
+    .SYNOPSIS
+        Prompts user for a Yes/No choice
+    
+    .PARAMETER Prompt
+        The prompt message
+    
+    .PARAMETER Default
+        Default choice (Y or N)
+    #>
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Prompt,
+        
+        [ValidateSet(""Y"", ""N"", """")]
+        [string]$Default = ""Y""
+    )
+    
+    $choices = @(""Yes"", ""No"")
+    $defaultChoice = if ($Default -eq ""Y"") { ""Yes"" } else { ""No"" }
+    
+    $result = Get-UserChoice -Prompt $Prompt -Choices $choices -Default $defaultChoice
+    
+    return $result -eq ""Yes""
+}
+
+function Show-ToolSelectionMenu {
+    <#
+    .SYNOPSIS
+        Shows an interactive tool selection menu
+    
+    .PARAMETER AvailableTools
+        Array of available tools
+    
+    .PARAMETER PreselectedTools
+        Array of preselected tools
+    #>
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true)]
+        [array]$AvailableTools,
+        
+        [array]$PreselectedTools = @()
+    )
+    
+    $toolDescriptions = @{
+        ""git"" = ""Version control system for tracking changes""
+        ""curl"" = ""Command-line tool for transferring data""
+        ""lazygit"" = ""Simple terminal UI for git commands""
+        ""nerd-fonts"" = ""Iconic font aggregator and collection""
+        ""oh-my-posh"" = ""Prompt theme engine for any shell""
+        ""fzf"" = ""Command-line fuzzy finder""
+        ""eza"" = ""Modern replacement for ls command""
+        ""bat"" = ""Cat clone with syntax highlighting""
+        ""lsd"" = ""Next gen ls command with icons""
+        ""neovim"" = ""Hyperextensible Vim-based text editor""
+        ""zoxide"" = ""Smarter cd command with frecency""
+        ""fnm"" = ""Fast and simple Node.js version manager""
+        ""pyenv"" = ""Simple Python version management""
+    }
+    
+    $selectedTools = $PreselectedTools.Clone()
+    
+    do {
+        Clear-Host
+        Show-WelcomeBanner
+        
+        Write-Host ""???????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????"" -ForegroundColor Green","PSAvoidUsingPositionalParameters","Information","UserInterface.psm1","C:\Users\bangvu\Desktop\Projects\window-terminal\modules\Core\UserInterface.psm1","Write-Host",,"False"
+"434","5","Cmdlet 'Write-Host' has positional parameter. Please use named parameters instead of positional parameters when calling a command.","Write-Host ""???????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????"" -ForegroundColor Blue
+    Write-Host ""???                            CONFIGURATION OPTIONS                             ???"" -ForegroundColor Blue
+    Write-Host ""???????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????"" -ForegroundColor Blue
+    Write-Host """"
+    
+    # Theme selection
+    $themes = @(""One Half Dark"", ""One Half Light"", ""Solarized Dark"", ""Solarized Light"", ""Campbell"", ""Vintage"")
+    $config.Theme = Get-UserChoice -Prompt ""Select Windows Terminal theme:"" -Choices $themes -Default $config.Theme
+    
+    # Font selection
+    $fonts = @(""CascadiaCode Nerd Font"", ""FiraCode Nerd Font"", ""JetBrainsMono Nerd Font"", ""Hack Nerd Font"")
+    $config.Font = Get-UserChoice -Prompt ""Select terminal font:"" -Choices $fonts -Default $config.Font
+    
+    # Backup option
+    $config.CreateBackup = Get-YesNoChoice -Prompt ""Create backup of existing configurations?"" -Default ""Y""
+    
+    # PowerShell 7 installation
+    $config.InstallPowerShell7 = Get-YesNoChoice -Prompt ""Install PowerShell 7 (recommended)?"" -Default ""Y""
+    
+    # Git configuration
+    if ($config.ConfigureGit) {
+        $config.ConfigureGit = Get-YesNoChoice -Prompt ""Configure Git with your user information?"" -Default ""Y""
+        
+        if ($config.ConfigureGit) {
+            $config.GitUserName = Get-UserChoice -Prompt ""Enter your Git username:"" -AllowEmpty
+            $config.GitUserEmail = Get-UserChoice -Prompt ""Enter your Git email:"" -AllowEmpty
+        }
+    }
+    
+    return $config
+}
+
+function Show-InstallationSummary {
+    <#
+    .SYNOPSIS
+        Shows installation summary with results
+    
+    .PARAMETER Results
+        Installation results
+    #>
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory = $true)]
+        [hashtable]$Results
+    )
+    
+    Clear-Host
+    
+    $successCount = ($Results.Values | Where-Object { $_.Success -eq $true }).Count
+    $failureCount = ($Results.Values | Where-Object { $_.Success -eq $false }).Count
+    $totalCount = $Results.Count
+    
+    if ($successCount -eq $totalCount) {
+        $headerColor = ""Green""
+        $statusIcon = ""???""","PSAvoidUsingPositionalParameters","Information","UserInterface.psm1","C:\Users\bangvu\Desktop\Projects\window-terminal\modules\Core\UserInterface.psm1","Write-Host",,"False"
+"501","5","Cmdlet 'Write-Host' has positional parameter. Please use named parameters instead of positional parameters when calling a command.","Write-Host ""???????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????"" -ForegroundColor $headerColor
+    Write-Host ""??? $statusIcon $($statusText.PadRight(75)) ???"" -ForegroundColor $headerColor
+    Write-Host ""???????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????"" -ForegroundColor $headerColor
+    Write-Host """"
+    
+    Write-Host ""Installation Summary:"" -ForegroundColor White
+    Write-Host ""  ??? Total tools processed: $totalCount"" -ForegroundColor Gray
+    Write-Host ""  ??? Successfully installed: $successCount"" -ForegroundColor Green
+    Write-Host ""  ??? Failed installations: $failureCount"" -ForegroundColor Red
+    Write-Host """"
+    
+    if ($successCount -gt 0) {
+        Write-Host ""[+] Successfully Installed:"" -ForegroundColor Green
+        foreach ($result in $Results.GetEnumerator()) {
+            if ($result.Value.Success) {
+                $version = if ($result.Value.Version) { "" ($($result.Value.Version))"" } else { """" }
+                Write-Host ""    - $($result.Key)$version"" -ForegroundColor Green
+            }
+        }
+        Write-Host """"
+    }
+
+    if ($failureCount -gt 0) {
+        Write-Host ""[-] Failed Installations:"" -ForegroundColor Red
+        foreach ($result in $Results.GetEnumerator()) {
+            if (-not $result.Value.Success) {
+                Write-Host ""    - $($result.Key): $($result.Value.Message)"" -ForegroundColor Red
+            }
+        }
+        Write-Host """"
+    }
+}
+
+# Export module functions
+Export-ModuleMember -Function @(
+    'Initialize-UserInterface',
+    'Show-WelcomeBanner',
+    'Show-ProgressBar',
+    'Show-StepHeader',
+    'Get-UserChoice',
+    'Get-YesNoChoice',
+    'Show-ToolSelectionMenu',
+    'Show-ConfigurationMenu',
+    'Show-InstallationSummary'
+)
+","PSAvoidUsingPositionalParameters","Information","UserInterface.psm1","C:\Users\bangvu\Desktop\Projects\window-terminal\modules\Core\UserInterface.psm1","Write-Host",,"False"

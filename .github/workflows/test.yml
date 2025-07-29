@@ -1,0 +1,357 @@
+name: Test Windows Terminal Setup
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # Run tests daily at 2 AM UTC
+    - cron: '0 2 * * *'
+
+jobs:
+  test:
+    name: Test on ${{ matrix.os }} with PowerShell ${{ matrix.powershell-version }}
+    runs-on: ${{ matrix.os }}
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2019, windows-2022]
+        powershell-version: ['5.1', '7.x']
+        exclude:
+          # PowerShell 5.1 is not available on Windows 2022 runners
+          - os: windows-2022
+            powershell-version: '5.1'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup PowerShell ${{ matrix.powershell-version }}
+      if: matrix.powershell-version == '7.x'
+      uses: actions/setup-powershell@v1
+      with:
+        powershell-version: ${{ matrix.powershell-version }}
+        
+    - name: Display PowerShell version
+      shell: pwsh
+      run: |
+        Write-Host "PowerShell Version: $($PSVersionTable.PSVersion)"
+        Write-Host "PowerShell Edition: $($PSVersionTable.PSEdition)"
+        Write-Host "OS: $($PSVersionTable.OS)"
+        
+    - name: Install Pester
+      shell: pwsh
+      run: |
+        if (-not (Get-Module -ListAvailable -Name Pester)) {
+          Install-Module -Name Pester -Force -SkipPublisherCheck -Scope CurrentUser
+        }
+        Import-Module Pester
+        Write-Host "Pester Version: $((Get-Module Pester).Version)"
+        
+    - name: Install PSScriptAnalyzer
+      shell: pwsh
+      run: |
+        if (-not (Get-Module -ListAvailable -Name PSScriptAnalyzer)) {
+          Install-Module -Name PSScriptAnalyzer -Force -SkipPublisherCheck -Scope CurrentUser
+        }
+        
+    - name: Validate test environment
+      shell: pwsh
+      run: |
+        .\tests\Test-Configuration.ps1 -ValidateEnvironment -CheckDependencies
+        
+    - name: Run unit tests
+      shell: pwsh
+      run: |
+        .\tests\Run-Tests.ps1 -TestType Unit -OutputFormat NUnitXml -OutputPath "TestResults"
+        
+    - name: Run integration tests
+      shell: pwsh
+      run: |
+        .\tests\Run-Tests.ps1 -TestType Integration -OutputFormat NUnitXml -OutputPath "TestResults"
+        
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: test-results-${{ matrix.os }}-ps${{ matrix.powershell-version }}
+        path: TestResults/
+        retention-days: 30
+        
+    - name: Publish test results
+      uses: dorny/test-reporter@v1
+      if: always()
+      with:
+        name: Test Results (${{ matrix.os }}, PS ${{ matrix.powershell-version }})
+        path: TestResults/*.xml
+        reporter: java-junit
+        fail-on-error: false
+
+  code-quality:
+    name: Code Quality Analysis
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup PowerShell
+      uses: actions/setup-powershell@v1
+      with:
+        powershell-version: '7.x'
+        
+    - name: Install PSScriptAnalyzer
+      shell: pwsh
+      run: |
+        Install-Module -Name PSScriptAnalyzer -Force -SkipPublisherCheck -Scope CurrentUser
+        
+    - name: Run PSScriptAnalyzer
+      shell: pwsh
+      run: |
+        $results = Invoke-ScriptAnalyzer -Path . -Recurse -ReportSummary
+        
+        if ($results) {
+          Write-Host "PSScriptAnalyzer found $($results.Count) issues:"
+          $results | Format-Table -AutoSize
+          
+          # Create results directory
+          New-Item -ItemType Directory -Path "CodeAnalysis" -Force
+          
+          # Export results
+          $results | Export-Csv -Path "CodeAnalysis\PSScriptAnalyzer-Results.csv" -NoTypeInformation
+          $results | ConvertTo-Json | Out-File -FilePath "CodeAnalysis\PSScriptAnalyzer-Results.json"
+          
+          # Fail if there are error-level issues
+          $errors = $results | Where-Object Severity -eq "Error"
+          if ($errors) {
+            Write-Host "Found $($errors.Count) error-level issues. Failing build."
+            exit 1
+          }
+        } else {
+          Write-Host "No PSScriptAnalyzer issues found."
+        }
+        
+    - name: Upload code analysis results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: code-analysis-results
+        path: CodeAnalysis/
+        retention-days: 30
+
+  security-scan:
+    name: Security Scan
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup PowerShell
+      uses: actions/setup-powershell@v1
+      with:
+        powershell-version: '7.x'
+        
+    - name: Security scan with PSScriptAnalyzer
+      shell: pwsh
+      run: |
+        Install-Module -Name PSScriptAnalyzer -Force -SkipPublisherCheck -Scope CurrentUser
+        
+        # Run security-focused analysis
+        $securityResults = Invoke-ScriptAnalyzer -Path . -Recurse -IncludeRule @(
+          'PSAvoidUsingPlainTextForPassword',
+          'PSAvoidUsingConvertToSecureStringWithPlainText',
+          'PSAvoidUsingUsernameAndPasswordParams',
+          'PSAvoidUsingInvokeExpression',
+          'PSAvoidUsingComputerNameHardcoded'
+        )
+        
+        if ($securityResults) {
+          Write-Host "Security scan found $($securityResults.Count) potential issues:"
+          $securityResults | Format-Table -AutoSize
+          
+          # Create results directory
+          New-Item -ItemType Directory -Path "SecurityScan" -Force
+          
+          # Export results
+          $securityResults | Export-Csv -Path "SecurityScan\Security-Issues.csv" -NoTypeInformation
+          $securityResults | ConvertTo-Json | Out-File -FilePath "SecurityScan\Security-Issues.json"
+          
+          # Fail if there are high-severity security issues
+          $highSeverity = $securityResults | Where-Object Severity -in @("Error", "Warning")
+          if ($highSeverity) {
+            Write-Host "Found $($highSeverity.Count) high-severity security issues. Failing build."
+            exit 1
+          }
+        } else {
+          Write-Host "No security issues found."
+        }
+        
+    - name: Upload security scan results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: security-scan-results
+        path: SecurityScan/
+        retention-days: 30
+
+  compatibility-test:
+    name: Compatibility Test
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup PowerShell 7
+      uses: actions/setup-powershell@v1
+      with:
+        powershell-version: '7.x'
+        
+    - name: Test script compatibility
+      shell: pwsh
+      run: |
+        # Test main scripts for syntax errors
+        $scripts = @(
+          "Install-WindowsTerminalSetup-Enhanced.ps1",
+          "Install-WindowsTerminalSetup-Simple.ps1"
+        )
+        
+        $compatibilityResults = @()
+        
+        foreach ($script in $scripts) {
+          if (Test-Path $script) {
+            Write-Host "Testing $script..."
+            
+            try {
+              # Parse script for syntax errors
+              $errors = $null
+              $null = [System.Management.Automation.PSParser]::Tokenize((Get-Content $script -Raw), [ref]$errors)
+              
+              if ($errors) {
+                $compatibilityResults += @{
+                  Script = $script
+                  Status = "Failed"
+                  Errors = $errors
+                }
+                Write-Host "  Syntax errors found in $script" -ForegroundColor Red
+                $errors | ForEach-Object { Write-Host "    $_" -ForegroundColor Red }
+              } else {
+                $compatibilityResults += @{
+                  Script = $script
+                  Status = "Passed"
+                  Errors = @()
+                }
+                Write-Host "  $script passed syntax check" -ForegroundColor Green
+              }
+              
+              # Test dry run execution
+              Write-Host "  Testing dry run execution..."
+              $result = & ".\$script" -DryRun -Interactive:$false -SkipUI -ErrorAction Stop
+              Write-Host "  Dry run completed successfully" -ForegroundColor Green
+              
+            } catch {
+              Write-Host "  Error testing $script : $($_.Exception.Message)" -ForegroundColor Red
+              $compatibilityResults[-1].Status = "Failed"
+              $compatibilityResults[-1].Errors += $_.Exception.Message
+            }
+          }
+        }
+        
+        # Create results directory
+        New-Item -ItemType Directory -Path "CompatibilityTest" -Force
+        
+        # Export results
+        $compatibilityResults | ConvertTo-Json -Depth 3 | Out-File -FilePath "CompatibilityTest\Compatibility-Results.json"
+        
+        # Check if any tests failed
+        $failed = $compatibilityResults | Where-Object Status -eq "Failed"
+        if ($failed) {
+          Write-Host "Compatibility test failed for $($failed.Count) script(s)" -ForegroundColor Red
+          exit 1
+        } else {
+          Write-Host "All compatibility tests passed" -ForegroundColor Green
+        }
+        
+    - name: Upload compatibility test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: compatibility-test-results
+        path: CompatibilityTest/
+        retention-days: 30
+
+  documentation-check:
+    name: Documentation Check
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Check documentation completeness
+      shell: pwsh
+      run: |
+        $docResults = @{
+          RequiredDocs = @()
+          MissingDocs = @()
+          ExistingDocs = @()
+        }
+        
+        # Required documentation files
+        $requiredDocs = @(
+          "README.md",
+          "docs/INSTALLATION_GUIDE.md",
+          "docs/TROUBLESHOOTING.md",
+          "docs/API_DOCUMENTATION.md",
+          "docs/CONTRIBUTING.md",
+          "docs/ARCHITECTURE.md",
+          "docs/FAQ.md",
+          "docs/USAGE_EXAMPLES.md"
+        )
+        
+        foreach ($doc in $requiredDocs) {
+          $docResults.RequiredDocs += $doc
+          
+          if (Test-Path $doc) {
+            $docResults.ExistingDocs += $doc
+            Write-Host "✓ $doc exists" -ForegroundColor Green
+            
+            # Check if file has content
+            $content = Get-Content $doc -Raw
+            if ($content.Length -lt 100) {
+              Write-Host "  Warning: $doc appears to be very short" -ForegroundColor Yellow
+            }
+          } else {
+            $docResults.MissingDocs += $doc
+            Write-Host "✗ $doc is missing" -ForegroundColor Red
+          }
+        }
+        
+        Write-Host ""
+        Write-Host "Documentation Summary:" -ForegroundColor Cyan
+        Write-Host "  Required: $($docResults.RequiredDocs.Count)" -ForegroundColor White
+        Write-Host "  Existing: $($docResults.ExistingDocs.Count)" -ForegroundColor Green
+        Write-Host "  Missing: $($docResults.MissingDocs.Count)" -ForegroundColor Red
+        
+        # Create results directory
+        New-Item -ItemType Directory -Path "DocumentationCheck" -Force
+        
+        # Export results
+        $docResults | ConvertTo-Json | Out-File -FilePath "DocumentationCheck\Documentation-Check.json"
+        
+        # Fail if critical documentation is missing
+        if ($docResults.MissingDocs.Count -gt 0) {
+          Write-Host "Critical documentation files are missing" -ForegroundColor Red
+          exit 1
+        }
+        
+    - name: Upload documentation check results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: documentation-check-results
+        path: DocumentationCheck/
+        retention-days: 30
